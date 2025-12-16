@@ -3,49 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>关于我</title>
-    <meta name="description" content="movinghorse 的个人主页">
+    <title>movinghorse · AI Space</title>
+    <meta name="description" content="movinghorse 的 AI 空间 · 极简 · 科技感 · 动画">
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
-    <div class="profile-container">
-        <div class="header">
-            <h1>您的名字</h1>
-            <div class="subtitle">Web开发工程师</div>
+    <div class="background">
+        <div class="gradient-layer"></div>
+        <div class="grid-layer"></div>
+        <div class="orbits">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
+        <canvas id="particles"></canvas>
+    </div>
 
-        <div class="section">
-            <h2>关于我</h2>
-            <p>这里是您的个人简介。您可以描述您的职业经历、教育背景、兴趣爱好等。让访问者更好地了解您。</p>
-        </div>
-
-        <div class="section">
-            <h2>技能专长</h2>
-            <div class="skills">
-                <span class="skill-tag">HTML5</span>
-                <span class="skill-tag">CSS3</span>
-                <span class="skill-tag">JavaScript</span>
-                <span class="skill-tag">React</span>
-                <span class="skill-tag">Node.js</span>
-                <span class="skill-tag">Git</span>
+    <main class="hero">
+        <div class="hero-left">
+            <div class="badge">ONLINE · AI MODE</div>
+            <h1 class="hero-title">
+                <span class="hero-title-main">movinghorse</span>
+                <span class="hero-title-sub">building with code & intelligence</span>
+            </h1>
+            <p class="hero-description">
+                一个极简、AI 化、偏技术向的实验空间。<br>
+                不吵闹，不复杂，只专注于思考、构建和演化。
+            </p>
+            <div class="hero-actions">
+                <a class="btn primary" href="https://github.com/movinghorse" target="_blank" rel="noreferrer">
+                    <span class="btn-glow"></span>
+                    <span>进入代码宇宙</span>
+                </a>
+                <button class="btn ghost" id="aiPulseToggle">
+                    切换 AI 脉冲
+                </button>
+            </div>
+            <div class="hero-meta">
+                <div class="meta-item">
+                    <span class="meta-label">模式</span>
+                    <span class="meta-value" id="modeLabel">NEURAL FOCUS</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">迭代</span>
+                    <span class="meta-value">∞ / continuous</span>
+                </div>
             </div>
         </div>
 
-        <div class="section">
-            <h2>工作经历</h2>
-            <p>在这里添加您的工作经历...</p>
+        <div class="hero-right">
+            <div class="neural-card">
+                <div class="neural-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="neural-title">AI SIGNAL STREAM</span>
+                </div>
+                <div class="neural-body" id="neuralStream">
+                    <div class="neural-line">boot · aligning parameters...</div>
+                    <div class="neural-line">ready · awaiting next interesting idea.</div>
+                    <div class="neural-line faint">hint · 你可以把这里当作你的 AI 实验室。</div>
+                </div>
+                <div class="neural-footer">
+                    <span class="status-dot"></span>
+                    <span class="status-text">link stable · latency &lt; 20ms</span>
+                </div>
+            </div>
         </div>
+    </main>
 
-        <div class="section">
-            <h2>教育背景</h2>
-            <p>在这里添加您的教育经历...</p>
-        </div>
-
-        <div class="contact">
-            <a href="mailto:your.email@example.com">Email</a>
-            <a href="https://github.com/yourusername" target="_blank">GitHub</a>
-            <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
-        </div>
-    </div>
+    <script src="/assets/js/main.js"></script>
 </body>
 </html>
