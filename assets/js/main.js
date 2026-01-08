@@ -10,7 +10,11 @@
   canvas.width = width;
   canvas.height = height;
 
-  const particleCount = Math.min(120, Math.floor((width * height) / 12000));
+  // 移动端减少粒子数量以提高性能
+  const isMobile = window.innerWidth <= 768;
+  const particleCount = isMobile 
+    ? Math.min(60, Math.floor((width * height) / 18000))
+    : Math.min(120, Math.floor((width * height) / 12000));
   const particles = [];
   const TAU = Math.PI * 2;
 
@@ -39,7 +43,9 @@
   let mouseX = width / 2;
   let mouseY = height / 2;
   let hasMouse = false;
+  let hasTouch = false;
 
+  // 鼠标事件
   window.addEventListener("mousemove", (e) => {
     hasMouse = true;
     mouseX = e.clientX;
@@ -50,11 +56,47 @@
     hasMouse = false;
   });
 
+  // 触摸事件支持（移动端）
+  window.addEventListener("touchstart", (e) => {
+    hasTouch = true;
+    if (e.touches.length > 0) {
+      mouseX = e.touches[0].clientX;
+      mouseY = e.touches[0].clientY;
+    }
+  });
+
+  window.addEventListener("touchmove", (e) => {
+    e.preventDefault(); // 防止页面滚动
+    hasTouch = true;
+    if (e.touches.length > 0) {
+      mouseX = e.touches[0].clientX;
+      mouseY = e.touches[0].clientY;
+    }
+  });
+
+  window.addEventListener("touchend", () => {
+    hasTouch = false;
+  });
+
   window.addEventListener("resize", () => {
     width = window.innerWidth;
     height = window.innerHeight;
     canvas.width = width;
     canvas.height = height;
+    
+    // 重新计算粒子数量以适应新的屏幕尺寸
+    const newIsMobile = width <= 768;
+    const newParticleCount = newIsMobile 
+      ? Math.min(60, Math.floor((width * height) / 18000))
+      : Math.min(120, Math.floor((width * height) / 12000));
+    
+    // 调整粒子数组大小
+    while (particles.length < newParticleCount) {
+      particles.push(createParticle());
+    }
+    while (particles.length > newParticleCount) {
+      particles.pop();
+    }
   });
 
   function draw() {
@@ -75,7 +117,9 @@
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, width, height);
 
-    const linkDistance = Math.min(160, Math.max(90, width / 12));
+    const linkDistance = isMobile 
+      ? Math.min(120, Math.max(70, width / 14))
+      : Math.min(160, Math.max(90, width / 12));
 
     for (let i = 0; i < particles.length; i++) {
       const p = particles[i];
@@ -92,11 +136,11 @@
       p.alpha = Math.max(0.18, Math.min(0.95, p.alpha));
 
       let influence = 0;
-      if (hasMouse) {
+      if (hasMouse || hasTouch) {
         const dx = p.x - mouseX;
         const dy = p.y - mouseY;
         const dist2 = dx * dx + dy * dy;
-        const maxDist = 220;
+        const maxDist = isMobile ? 180 : 220; // 移动端减小影响范围
         if (dist2 < maxDist * maxDist) {
           influence = 1 - dist2 / (maxDist * maxDist);
         }
@@ -191,5 +235,6 @@
     }, 3600);
   }
 })();
+
 
 

@@ -34,6 +34,17 @@ body {
     color: var(--fg-color);
     background: radial-gradient(circle at top, #0f172a 0, #020617 45%, #000 100%);
     overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 880px) {
+    body {
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
 }
 
 body::before {
@@ -70,6 +81,13 @@ body::before {
     animation: gradient-rotate 26s linear infinite;
 }
 
+@media (max-width: 768px) {
+    .gradient-layer {
+        filter: blur(60px);
+        opacity: 0.2;
+    }
+}
+
 .grid-layer {
     position: absolute;
     inset: 0;
@@ -81,6 +99,12 @@ body::before {
     opacity: 0.65;
     transform-origin: center;
     animation: grid-drift 26s linear infinite;
+}
+
+@media (max-width: 768px) {
+    .grid-layer {
+        background-size: clamp(24px, 6vw, 38px) clamp(24px, 6vw, 38px);
+    }
 }
 
 .orbits {
@@ -122,6 +146,23 @@ body::before {
     animation: orbit-spin 60s linear infinite;
 }
 
+@media (max-width: 768px) {
+    .orbits span:nth-child(1) {
+        width: min(420px, 80vw);
+        height: min(420px, 80vw);
+    }
+
+    .orbits span:nth-child(2) {
+        width: min(640px, 100vw);
+        height: min(640px, 100vw);
+    }
+
+    .orbits span:nth-child(3) {
+        width: min(900px, 120vw);
+        height: min(900px, 120vw);
+    }
+}
+
 canvas#particles {
     position: absolute;
     inset: 0;
@@ -143,13 +184,27 @@ canvas#particles {
 @media (max-width: 880px) {
     .hero {
         grid-template-columns: minmax(0, 1fr);
-        padding-top: 32px;
-        padding-bottom: 40px;
+        padding-top: clamp(24px, 6vw, 32px);
+        padding-bottom: clamp(32px, 8vw, 40px);
+        padding-left: clamp(16px, 4vw, 24px);
+        padding-right: clamp(16px, 4vw, 24px);
         overflow-y: auto;
+        gap: clamp(24px, 6vw, 32px);
+        height: auto;
+        min-height: 100vh;
     }
 
-    body {
-        overflow: hidden;
+    .hero-left {
+        order: 1;
+    }
+
+    .hero-right {
+        order: 2;
+        justify-content: center;
+    }
+
+    .neural-card {
+        max-width: 100%;
     }
 }
 
@@ -212,6 +267,13 @@ canvas#particles {
     z-index: -1;
 }
 
+@media (max-width: 480px) {
+    .hero-title-main::after {
+        filter: blur(8px);
+        opacity: 0.7;
+    }
+}
+
 .hero-title-sub {
     font-size: 13px;
     letter-spacing: 0.18em;
@@ -238,6 +300,57 @@ canvas#particles {
     .hero-actions {
         flex-direction: column;
         align-items: stretch;
+        gap: 12px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 12px;
+    }
+
+    .hero-title-main {
+        font-size: clamp(32px, 8vw, 42px);
+    }
+
+    .hero-title-sub {
+        font-size: 12px;
+    }
+
+    .hero-description {
+        font-size: 13px;
+        line-height: 1.6;
+        max-width: 100%;
+    }
+
+    .badge {
+        font-size: 10px;
+        padding: 6px 10px;
+    }
+
+    .hero-meta {
+        gap: 16px;
+        font-size: 10px;
+    }
+
+    .neural-card {
+        border-radius: 16px;
+    }
+
+    .neural-body {
+        font-size: 10px;
+        padding: 12px 14px 8px;
+        min-height: 120px;
+    }
+
+    .neural-header,
+    .neural-footer {
+        padding: 8px 12px;
+        font-size: 9px;
+    }
+
+    .neural-title {
+        font-size: 9px;
     }
 }
 
@@ -306,12 +419,25 @@ canvas#particles {
     transform: translateY(1px) scale(0.99);
 }
 
+@media (max-width: 768px) {
+    .btn {
+        min-height: 44px;
+        touch-action: manipulation;
+    }
+}
+
 .hero-meta {
     display: flex;
     flex-wrap: wrap;
     gap: 18px;
     font-size: 11px;
     color: var(--muted);
+}
+
+@media (max-width: 480px) {
+    .hero-meta {
+        gap: 14px;
+    }
 }
 
 .meta-item {
